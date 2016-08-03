@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .models import Input
 
-# Create your views here.
+def post_list(request):
+	urls = Input.objects.all()
+	return render(request, 'urlExp/post_list.html', {'urls': urls})

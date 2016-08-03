@@ -1,0 +1,13 @@
+<div>
+    <h1><a href="/">Urls</a></h1>
+</div>
+
+{% for url in urls %}
+    <div>
+    	<p>Title </p>
+        <p>URL: {{ url.inURL }}</p>
+        <p>Expanded: </p>
+        <p>Status Code : </p>
+        <p>Final Destination : </p>
+    </div>
+{% endfor %}

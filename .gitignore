@@ -5,3 +5,4 @@ db.sqlite3
 /static
 .DS_Store
 /home/ubuntu/lab1/mylab1/settings.py
+settings.py
