@@ -6,11 +6,11 @@
 	{% for urls in url %}
 	    <div>
 	    	<p>-----------------</p>
-	    	<p>Title : {{urls.inURL}}</p>
-	        <p>URL: <a href="{% url 'post_edit' pk=urls.pk %}">{{ urls.inURL }}</a></p>
-	        <p>Expanded :</p>
-	        <p>Status Code : </p>
-	        <p>Final Destination : </p>
+	    	<p>Title : {{urls.title}}</p>
+	        <p>URL: <a href="{% url 'post_detail' pk=urls.pk %}">{{ urls.inURL }}</a></p>
+	        <p>Count img tag : {{ urls.exp }}</p>
+	        <p>Status Code : {{urls.status}} </p>
+	        <p>Final Destination : {{urls.destination}} </p>
 	    </div>
 	{% endfor %}
 {% endblock %}

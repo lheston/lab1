@@ -9,12 +9,9 @@ class Input(models.Model):
 	status = models.CharField(max_length=200, default='')
 	destination = models.CharField(max_length=200, default='')
 	title = models.CharField(max_length=200, default='')
+	exp = models.CharField(max_length=200, default='')
 
 	def __str__(self):
 		return self.inURL
 
 
-
-def title(website):
-	soup = BeautifulSoup(urlopen("https://www.google.com"))
-	return soup.title.string
