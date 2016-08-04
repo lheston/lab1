@@ -6,6 +6,8 @@ import urllib.request as rq
 import requests
 import urllib
 from .forms import PostForm
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponsePermanentRedirect
 
 
 def post_list(request):
@@ -21,14 +23,12 @@ def post_list(request):
 #   return render(request, 'urlExp/post_list.html', {'urls': urls})
 def post_detail(request, pk):
     post = get_object_or_404(Input, pk=pk)
-    if request.POST.get('delete'):
-    	post.delete()
     return render(request, 'urlExp/post_detail.html', {'post': post})
 
 def delete(request, pk):
 	post = get_object_or_404(Input, pk=pk)
-	post = New.objects.get(pk=pk).delete()
-	return render(request, 'urlExp/post_list.html', {'url': url})
+	post = post.delete()
+	return HttpResponseRedirect(reverse('post_list'))
 
 def title(websites):
 	website = str(websites)
