@@ -1,13 +1,16 @@
-<div>
-    <h1><a href="/">Urls</a></h1>
-</div>
+{% extends 'urlExp/base.html' %}
 
-{% for url in urls %}
-    <div>
-    	<p>Title </p>
-        <p>URL: {{ url.inURL }}</p>
-        <p>Expanded: </p>
-        <p>Status Code : </p>
-        <p>Final Destination : </p>
-    </div>
-{% endfor %}
+
+{% block content %}
+	<h5>Current URL's : </h5>
+	{% for urls in url %}
+	    <div>
+	    	<p>-----------------</p>
+	    	<p>Title : {{urls.inURL}}</p>
+	        <p>URL: <a href="{% url 'post_edit' pk=urls.pk %}">{{ urls.inURL }}</a></p>
+	        <p>Expanded :</p>
+	        <p>Status Code : </p>
+	        <p>Final Destination : </p>
+	    </div>
+	{% endfor %}
+{% endblock %}
