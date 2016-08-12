@@ -10,6 +10,8 @@ class Input(models.Model):
 	destination = models.CharField(max_length=200, default='')
 	title = models.CharField(max_length=200, default='')
 	exp = models.CharField(max_length=200, default='')
+	wayurl = models.CharField(max_length=200, default='')
+	waytime = models.CharField(max_length=200, default='')
 
 	def __str__(self):
 		return self.inURL

@@ -5,22 +5,18 @@ from bs4 import BeautifulSoup
 import urllib.request as rq
 import requests
 import urllib
+from datetime import datetime
 from .forms import PostForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponsePermanentRedirect
+from django.contrib.auth.decorators import login_required
 
-
+#@login_required
 def post_list(request):
 	url = Input.objects.all()
 	return render(request, 'urlExp/post_list.html', {'url': url})
 	
-	#if urls.exists():
-	#	for url in urls.iterator():
-	#		return render(request, 'urlExp/post_list.html', {'url': url, 'title': title(url.inURL)})
-
-#def post_detail(request, pk):
-#   urls = get_object_or_404(Input, pk=Input.inURL)
-#   return render(request, 'urlExp/post_list.html', {'urls': urls})
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Input, pk=pk)
     return render(request, 'urlExp/post_detail.html', {'post': post})
@@ -48,6 +44,7 @@ def fin(websites):
 	out = websites + '->' + str(r.url)
 	return out
 
+@login_required
 def post_new(request):
 	if request.method == "POST":
 		form = PostForm(request.POST)
@@ -58,9 +55,24 @@ def post_new(request):
 			post.status = requests.get(str(request.POST['inURL']))
 			post.exp = num(str(request.POST['inURL']))
 			post.destination = fin(str(request.POST['inURL']))
+			post.wayurl = wayUrl(str(request.POST['inURL']))
+			post.waytime = wayTime(str(request.POST['inURL']))
 			post.save()
 			return redirect('post_detail', pk=post.pk)
 
 	else:
 		form = PostForm()
 	return render(request, 'urlExp/post_edit.html', {'form': form})
+
+
+def wayUrl(request):
+
+	r = requests.get('http://archive.org/wayback/available?url=' + request).json()
+	return r['archived_snapshots']['closest']['url']
+
+def wayTime(request):
+	DateFormat = '%Y%m%d%H%M%S'
+	r = requests.get('http://archive.org/wayback/available?url=' + request).json()
+	r = r['archived_snapshots']['closest']['timestamp']
+	dt = datetime.strptime(r,DateFormat)
+	return dt

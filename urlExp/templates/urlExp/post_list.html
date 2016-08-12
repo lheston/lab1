@@ -2,6 +2,8 @@
 
 
 {% block content %}
+{% if user.is_authenticated %}
+	
 	<h5>Current URL's : </h5>
 	{% for urls in url %}
 	    <div>
@@ -9,8 +11,13 @@
 	    	<p>Title : {{urls.title}}</p>
 	        <p>URL: <a href="{% url 'post_detail' pk=urls.pk %}">{{ urls.inURL }}</a></p>
 	        <p>Count img tag : {{ urls.exp }}</p>
+	        <p>Count img tag : {{ urls.destination }}</p>
 	        <p>Status Code : {{urls.status}} </p>
-	        <p>Final Destination : {{urls.destination}} </p>
+	        <p>Wayback URL : {{urls.wayurl}} </p>
+	        <p>Wayback Time : {{urls.waytime}} </p>
 	    </div>
 	{% endfor %}
+	{% else %}
+	<p>Please login to view </p>
+	{% endif %}
 {% endblock %}

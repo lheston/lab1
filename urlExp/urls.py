@@ -7,4 +7,5 @@ urlpatterns = [
 	url(r'^post/new/$', views.post_new, name='post_new'),
 	url(r'^delete/(?P<pk>\d+)/$', views.delete, name='delete'),
 
+
 ]
